@@ -2,12 +2,14 @@
 
 const logger = require('./logger');
 
-// orderby=updated : 公開日ではなく「実際に追加/更新された順」で並べる。
-//                    これにより過去日付でのバックデート投稿や後からの編集も
-//                    確実に上位（＝毎回の取得範囲内）に来るようにする。
-// max-results=300 : 1日30件更新が1週間続いても(約210件)十分にカバーできる余裕を持たせた件数。
+// max-results=150 : Bloggerの実際の仕様上、1リクエストで返る上限は150件（それ以上を
+//                    指定しても150にクランプされる）。1時間毎の実行であれば、
+//                    1日30件更新が続いても十分すぎるマージンがある。
+// 補足: orderby=updated は指定してもこのサイトのフィードでは効果がなく、
+//       常にpublished（公開日時）降順で返ってくることを確認済み。
+//       新規投稿の検知には影響しないため、無害な指定として残している。
 const FEED_URL =
-  'https://www.net-frx.com/feeds/posts/default?alt=json&max-results=300&orderby=updated';
+  'https://www.net-frx.com/feeds/posts/default?alt=json&max-results=150&orderby=updated';
 
 /**
  * どの処理段階で失敗したかを保持するエラー
