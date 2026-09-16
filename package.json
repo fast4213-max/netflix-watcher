@@ -1,0 +1,18 @@
+{
+  "name": "netflix-watcher",
+  "version": "1.0.0",
+  "description": "Netflix新着作品ページを監視し、差分をDiscordに通知するBot",
+  "main": "src/index.js",
+  "type": "commonjs",
+  "private": true,
+  "scripts": {
+    "init": "MODE=init node src/index.js",
+    "test": "MODE=test node src/index.js",
+    "run": "MODE=run node src/index.js",
+    "start": "node src/index.js"
+  },
+  "engines": {
+    "node": ">=18"
+  },
+  "license": "MIT"
+}
