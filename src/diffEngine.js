@@ -67,7 +67,12 @@ function markAllAsSeen(feedEntries, state) {
   const seenSet = new Set(state.seenIds);
   let addedCount = 0;
 
-  for (const entry of feedEntries) {
+  // フィードは新しい順で来る想定なので、seenIdsを古い→新しいの順で保持する
+  // stateManager側の「配列の先頭側が古い」という前提と合わせるために反転させる
+  // （detectNewEntriesと同じ並び順にする）
+  const chronological = [...feedEntries].reverse();
+
+  for (const entry of chronological) {
     if (!seenSet.has(entry.id)) {
       state.seenIds.push(entry.id);
       seenSet.add(entry.id);
